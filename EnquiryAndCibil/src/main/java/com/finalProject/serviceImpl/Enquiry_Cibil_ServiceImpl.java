@@ -1,5 +1,6 @@
 package com.finalProject.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,24 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 	public void deleteAll() {
 
 		er.deleteAll();
+		
+	}
+	@Override
+	public List<Enquiry> getAllEnquiryData() {
+		
+		return er.findAll();
+	}
+
+	@Override
+	public Enquiry UpdateRecord(Enquiry e, String enquiryid) {
+		
+		Optional<Enquiry> opEnquiry = er.findById(enquiryid);
+		if (opEnquiry.isPresent()) {
+			Enquiry enquiry = opEnquiry.get();
+			return er.save(e);
+		} else {
+			throw new EnquiryIdNotFoundException("No Record Found For ID Update Data:- " + enquiryid);
+		}
 		
 	}
 
