@@ -1,10 +1,13 @@
 package com.finalProject.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +45,16 @@ public class EnquiryController {
 		return new ResponseEntity<String>("record is deleted", HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/getAll")
+	public ResponseEntity<List<Enquiry>> getAllEnquiryData() {
+		List<Enquiry> list = es.getAllEnquiryData();
+		return new ResponseEntity<List<Enquiry>>(list, HttpStatus.OK);
+	}
+	@PatchMapping("/update/{enquiryid}")
+	public ResponseEntity<Enquiry> updateEnquiry(@RequestBody Enquiry e, @PathVariable String enquiryid) {
+		Enquiry data=   es.UpdateRecord(e, enquiryid);
+
+		return new ResponseEntity<Enquiry>(data,HttpStatus.OK);
+	}
 
 }
