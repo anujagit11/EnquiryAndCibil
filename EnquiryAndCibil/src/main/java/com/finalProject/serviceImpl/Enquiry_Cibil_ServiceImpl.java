@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.finalProject.customException.EnquiryIdNotFoundException;
 import com.finalProject.customException.RecordNotFoundException;
+import com.finalProject.model.CibilDetails;
 import com.finalProject.model.Enquiry;
 import com.finalProject.repo.EnquiryRepo;
 import com.finalProject.service.Enquiry_And_CbilServiceI;
@@ -20,8 +21,15 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 
 	@Override
 	public Enquiry saveEnquiry(Enquiry e) {
-		er.save(e);
-		return e;
+		CibilService c=new CibilService();
+		CibilDetails details=c.generateRandomCibilDetails();
+		System.out.println(details.getCibilId());
+		System.out.println(details.getCibilScore());
+		System.out.println(details.getRemark());
+		
+		e.setCibil(details);
+		
+		return er.save(e);
 	}
 
 	@Override

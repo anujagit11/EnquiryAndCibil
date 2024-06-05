@@ -1,7 +1,9 @@
 package com.finalProject.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -17,6 +19,8 @@ public class Enquiry {
 	private int age;
 	private String panCardNo;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private CibilDetails cibil;
 	
 
 }
