@@ -45,5 +45,12 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 		}
 
 	}
+	@Override
+	public void deleteAll() {
+
+		er.deleteAll();
+		
+	}
+
 
 }

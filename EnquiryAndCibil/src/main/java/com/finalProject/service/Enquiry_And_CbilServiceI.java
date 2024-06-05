@@ -10,4 +10,6 @@ public interface Enquiry_And_CbilServiceI {
 	
 	void deleteRecord(String enquiryid);
 
+	void deleteAll();
+
 }
