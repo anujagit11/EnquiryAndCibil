@@ -33,14 +33,21 @@ public class EnquiryController {
 		Enquiry user=es.getSingleEnquiry(enquiryid);
 		return new ResponseEntity<Enquiry>(user,HttpStatus.OK);
 	}
-
+	
 	@DeleteMapping("/deleteEnquiry/{enquiryid}")
 	public ResponseEntity<String> deleteEnquiry(@PathVariable String enquiryid)
 	{
 		es.deleteRecord(enquiryid);
+	
 		
 		return new ResponseEntity<String>("record is deleted", HttpStatus.OK);
 	}
+	@DeleteMapping("/DeleteAll")
+	public ResponseEntity<String> deleteAll() {
+		es.deleteAll();
+		return new ResponseEntity<String>("Delete All Data Successfully!..",HttpStatus.OK);
+	}
+
 	
 	
 
