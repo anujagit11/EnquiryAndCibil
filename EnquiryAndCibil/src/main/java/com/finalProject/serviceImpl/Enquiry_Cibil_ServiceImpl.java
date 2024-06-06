@@ -95,6 +95,11 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 		Optional<Enquiry> opEnquiry = er.findById(enquiryid);
 		if (opEnquiry.isPresent()) {
 			Enquiry enquiry = opEnquiry.get();
+		String cid	=enquiry.getCibil().getCibilId();
+		String url="localhost:8082/update/"+cid;
+		        rt.postForObject(url, e, Enquiry.class);
+		        CibilDetails cd =rt.getForObject("http://localhost:8082/getCibilData", CibilDetails.class);
+				e.setCibil(cd);
 			return er.save(e);
 		} else {
 			throw new EnquiryIdNotFoundException("No Record Found For ID Update Data:- " + enquiryid);

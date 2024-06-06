@@ -9,4 +9,6 @@ public interface CibilService {
 
 	CibilDetails getCibilData();
 
+	CibilDetails updateCibil(String cid);
+
 }

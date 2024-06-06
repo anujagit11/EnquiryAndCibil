@@ -54,4 +54,20 @@ public class CibilServiceImpl implements CibilService {
 		}
 	}
 
+	@Override
+	public CibilDetails updateCibil(String cid) {
+		
+		CibilDetails cibilDetails = new CibilDetails();
+		Random r = new Random();
+		int score = r.nextInt(300, 900);
+		cibilDetails.setCibilId(cid);
+
+		cibilDetails.setCibilScore(score);
+		cibilDetails.setRemark(getRemarkForScore(score));
+		cibilDetails.setIsApplicable(applicable(score));
+		return cibilDetails;
+		
+		
+	}
+
 }
