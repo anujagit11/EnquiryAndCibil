@@ -27,6 +27,15 @@ public class CibilController {
 		return new ResponseEntity<CibilDetails>(user,HttpStatus.OK);
 	}
 	
+	@GetMapping("/update/{cid}")
+	public ResponseEntity<CibilDetails> updateCibilRecord(@PathVariable String cid)
+	{
+		CibilDetails  cd = cs.updateCibil(cid);
+		
+		return new ResponseEntity<CibilDetails>(cd, HttpStatus.OK);
+		
+	}
+	
 
 	}
 
