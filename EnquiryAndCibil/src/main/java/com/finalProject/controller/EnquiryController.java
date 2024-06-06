@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import com.finalProject.model.CibilDetails;
 import com.finalProject.model.Enquiry;
 import com.finalProject.service.Enquiry_And_CbilServiceI;
 
@@ -61,6 +59,7 @@ public class EnquiryController {
 		List<Enquiry> list = es.getAllEnquiryData();
 		return new ResponseEntity<List<Enquiry>>(list, HttpStatus.OK);
 	}
+	
 	@PatchMapping("/update/{enquiryid}")
 	public ResponseEntity<Enquiry> updateEnquiry(@RequestBody Enquiry e, @PathVariable String enquiryid) {
 		Enquiry data=   es.UpdateRecord(e, enquiryid);
