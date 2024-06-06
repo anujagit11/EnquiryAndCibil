@@ -22,37 +22,36 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 
 	@Autowired
 	EnquiryRepo er;
-	
+
 	@Autowired
 	RestTemplate rt;
-	
+
 	@Autowired
 	private JavaMailSender sender;
-	
+
 	@Value("${spring.mail.username}")
-	private static  String  from_email;
+	private static String from_email;
 
 	@Override
 	public Enquiry saveEnquiry(Enquiry e) {
-		
-		CibilDetails cd =rt.getForObject("http://localhost:8082/getCibilData", CibilDetails.class);
+
+		CibilDetails cd = rt.getForObject("http://localhost:8082/getCibilData", CibilDetails.class);
 		e.setCibil(cd);
-	
-		 er.save(e);
-		 
-		SimpleMailMessage sm=new SimpleMailMessage();
+
+		er.save(e);
+
+		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(e.getApplicantEmail());
 		sm.setFrom(from_email);
 		sm.setSubject("Regarding car loan enquiry");
-		sm.setText("Subject: Inquiry Response: Car Loan Information.. "+"\n"+
-				"Dear "+e.getFullName()+", \n"+
-				"Thank you for your interest in car financing with CJC."+"\n"+
-				"Your enquiryId is "+e.getEnquiryid()+" and Cibil Score is : "+e.getCibil().getCibilScore()+"\n"+
-				"You are "+e.getCibil().getIsApplicable());
-			
+		sm.setText("Subject: Inquiry Response: Car Loan Information.. " + "\n" + "Dear " + e.getFullName() + ", \n"
+				+ "Thank you for your interest in car financing with CJC." + "\n" + "Your enquiryId is "
+				+ e.getEnquiryid() + " and Cibil Score is : " + e.getCibil().getCibilScore() + "\n" + "You are "
+				+ e.getCibil().getIsApplicable());
+
 		sender.send(sm);
-		
-		return e;				
+
+		return e;
 	}
 
 	@Override
@@ -77,37 +76,39 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 		}
 
 	}
+
 	@Override
 	public void deleteAll() {
 
 		er.deleteAll();
-		
+
 	}
+
 	@Override
 	public List<Enquiry> getAllEnquiryData() {
-		
+
 		return er.findAll();
 	}
 
 	@Override
 	public Enquiry UpdateRecord(Enquiry e, String enquiryid) {
-		
+
 		Optional<Enquiry> opEnquiry = er.findById(enquiryid);
 		if (opEnquiry.isPresent()) {
 			Enquiry enquiry = opEnquiry.get();
-		String cid	=enquiry.getCibil().getCibilId();
-		String url="localhost:8082/update/"+cid;
-		        rt.postForObject(url, e, Enquiry.class);
-		        CibilDetails cd =rt.getForObject("http://localhost:8082/getCibilData", CibilDetails.class);
-				e.setCibil(cd);
+			String cid = enquiry.getCibil().getCibilId();
+			String url = "http://localhost:8082/update/" + cid;
+
+			//rt.postForObject(url, e, Enquiry.class);
+
+			CibilDetails cd = rt.getForObject(url, CibilDetails.class);
+			e.setCibil(cd);
+
 			return er.save(e);
 		} else {
 			throw new EnquiryIdNotFoundException("No Record Found For ID Update Data:- " + enquiryid);
 		}
-		
+
 	}
-	
-	
-	
 
 }
