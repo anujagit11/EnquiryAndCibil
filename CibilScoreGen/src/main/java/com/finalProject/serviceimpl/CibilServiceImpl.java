@@ -48,9 +48,9 @@ public class CibilServiceImpl implements CibilService {
 
 	public static String applicable(int score) {
 		if (score <= 600) {
-			return "No";
+			return "Not Applicable";
 		} else {
-			return "Yes";
+			return "Applicable";
 		}
 	}
 

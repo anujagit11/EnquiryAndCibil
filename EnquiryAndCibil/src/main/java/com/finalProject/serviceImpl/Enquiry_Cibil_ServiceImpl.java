@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,6 +24,11 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 	
 	@Autowired
 	RestTemplate rt;
+	
+	@Autowired
+	private JavaMailSender jm;
+	
+	private static  String  from_email;
 
 	@Override
 	public Enquiry saveEnquiry(Enquiry e) {
@@ -29,7 +36,17 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 		CibilDetails cd =rt.getForObject("http://localhost:8082/getCibilData", CibilDetails.class);
 		e.setCibil(cd);
 	
-		return er.save(e);
+		 er.save(e);
+		SimpleMailMessage sm=new SimpleMailMessage();
+		sm.setTo(e.getApplicantEmail());
+		sm.setFrom(from_email);
+		sm.setSubject("Regards car loan enquiry");
+		sm.setText("Subject: Inquiry Response: Car Loan Information\n"+"Dear"+e.getFullName()+"\n"+"Thank you for your interest in car financing with CJC.Your "
++ "enquiryId is\n"+e.getEnquiryid()+"and Cibil Score is:"+e.getCibil().getCibilScore()+".You are"+e.getCibil().getIsApplicable());
+				
+			return e;	
+				
+				
 	}
 
 	@Override
@@ -78,6 +95,8 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 		}
 		
 	}
-
+	
+	
+	
 
 }
