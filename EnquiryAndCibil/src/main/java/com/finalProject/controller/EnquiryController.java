@@ -23,8 +23,6 @@ public class EnquiryController {
 	@Autowired
 	Enquiry_And_CbilServiceI es;
 	
-	
-	
 	@PostMapping("/addenquiry")
 	public ResponseEntity<Enquiry> addEnquiry(@RequestBody Enquiry e)
 	{
