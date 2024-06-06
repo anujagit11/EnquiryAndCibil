@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.finalProject.model.CibilDetails;
 import com.finalProject.model.Enquiry;
 import com.finalProject.service.Enquiry_And_CbilServiceI;
 
@@ -22,6 +24,8 @@ public class EnquiryController {
 	
 	@Autowired
 	Enquiry_And_CbilServiceI es;
+	
+	
 	
 	@PostMapping("/addenquiry")
 	public ResponseEntity<Enquiry> addEnquiry(@RequestBody Enquiry e)

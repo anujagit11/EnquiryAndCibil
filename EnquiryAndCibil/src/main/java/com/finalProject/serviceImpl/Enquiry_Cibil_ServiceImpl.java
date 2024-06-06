@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.finalProject.customException.EnquiryIdNotFoundException;
 import com.finalProject.customException.RecordNotFoundException;
@@ -18,17 +19,16 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 
 	@Autowired
 	EnquiryRepo er;
+	
+	@Autowired
+	RestTemplate rt;
 
 	@Override
 	public Enquiry saveEnquiry(Enquiry e) {
-		CibilService c=new CibilService();
-		CibilDetails details=c.generateRandomCibilDetails();
-		System.out.println(details.getCibilId());
-		System.out.println(details.getCibilScore());
-		System.out.println(details.getRemark());
 		
-		e.setCibil(details);
-		
+		CibilDetails cd =rt.getForObject("http://localhost:8082/getCibilData", CibilDetails.class);
+		e.setCibil(cd);
+	
 		return er.save(e);
 	}
 
