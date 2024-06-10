@@ -18,4 +18,6 @@ public interface Enquiry_And_CbilServiceI {
 
 	Enquiry UpdateRecord(Enquiry e, String enquiryid);
 
+	Enquiry getEnquiry(String panCardNo);
+
 }

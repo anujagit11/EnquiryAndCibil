@@ -10,6 +10,8 @@ import com.finalProject.model.Enquiry;
 @Repository
 public interface EnquiryRepo extends JpaRepository<Enquiry, String>{
 
+	Enquiry findByPanCardNo(String panCardNo);
+
 
 
 

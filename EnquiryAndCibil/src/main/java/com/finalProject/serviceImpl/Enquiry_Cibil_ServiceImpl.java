@@ -36,6 +36,7 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 	public Enquiry saveEnquiry(Enquiry e) {
 
 		CibilDetails cd = rt.getForObject("http://localhost:8082/getCibilData", CibilDetails.class);
+			
 		e.setCibil(cd);
 
 		er.save(e);
@@ -108,6 +109,13 @@ public class Enquiry_Cibil_ServiceImpl implements Enquiry_And_CbilServiceI {
 		} else {
 			throw new EnquiryIdNotFoundException("No Record Found For ID Update Data:- " + enquiryid);
 		}
+
+	}
+
+	@Override
+	public Enquiry getEnquiry(String panCardNo) {
+		Enquiry ee   =er.findByPanCardNo(panCardNo);
+		return ee;
 
 	}
 

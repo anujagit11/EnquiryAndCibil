@@ -64,5 +64,11 @@ public class EnquiryController {
 
 		return new ResponseEntity<Enquiry>(data,HttpStatus.OK);
 	}
+	@GetMapping("/getpan/{panCardNo}")
+	public ResponseEntity<Enquiry> getEnquiryData(@PathVariable("panCardNo") String panCardNo)
+	{
+		Enquiry user=es.getEnquiry(panCardNo);
+		return new ResponseEntity<Enquiry>(user,HttpStatus.OK);
+	}
 
 }
