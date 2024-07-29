@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.finalProject.model.Enquiry;
 import com.finalProject.service.Enquiry_And_CbilServiceI;
 
-
+@CrossOrigin("*")
 @RestController
 public class EnquiryController {
 	
@@ -70,5 +71,22 @@ public class EnquiryController {
 		Enquiry user=es.getEnquiry(panCardNo);
 		return new ResponseEntity<Enquiry>(user,HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/bystatus/{status}")
+    public ResponseEntity<List<Enquiry>> getEnqByStatus(@PathVariable String status){
+		List<Enquiry> enq=es.getEnqByStatus(status);
+		return new ResponseEntity<List<Enquiry>>(enq,HttpStatus.OK);
+	}
+	
+	@PatchMapping("/updateStatus/{id}/{status}")
+	public void updateStatus(@PathVariable String id,@PathVariable String status){
+		System.out.println("in controller");
+		   es.updateStatus(id,status);
+	}
+	
+	@PatchMapping("/updateCibil/{enqid}")
+	public void updateCibilScore(@PathVariable String enqid)
+	{
+		es.updateCibilScore(enqid);
+    }
 }

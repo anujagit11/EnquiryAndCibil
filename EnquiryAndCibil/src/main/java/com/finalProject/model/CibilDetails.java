@@ -11,7 +11,7 @@ public class CibilDetails {
 @Id
 private String cibilId;
 private int cibilScore;
-private String remark;
+private String cbilScoreRemark;
 private String isApplicable;
 
 }

@@ -20,4 +20,12 @@ public interface Enquiry_And_CbilServiceI {
 
 	Enquiry getEnquiry(String panCardNo);
 
+	List<Enquiry> getEnqByStatus(String status);
+
+	
+
+	void updateStatus(String id, String status);
+
+	void updateCibilScore(String enqid);
+
 }
