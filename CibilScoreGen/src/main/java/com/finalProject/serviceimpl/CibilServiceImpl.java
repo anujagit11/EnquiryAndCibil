@@ -10,7 +10,7 @@ import com.finalProject.service.CibilService;
 @Service
 public class CibilServiceImpl implements CibilService {
 
-    private static final String PREFIX = "CJC";
+    private static final String PREFIX = "Cbil";
     private static final Set<String> generatedIds = new HashSet<>();
     private static final Random random = new Random();
     int initialScore=0;
@@ -63,7 +63,7 @@ public class CibilServiceImpl implements CibilService {
 
     @Override
     public CibilDetails updateCibil(String cid) {
-    	System.out.println("hellllllllo");
+    	
         CibilDetails cibilDetails = new CibilDetails();
         Random r = new Random();
         int score = r.nextInt(300, 900);
